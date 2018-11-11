@@ -4,14 +4,14 @@
 # powershell.exe -File SystemsReport.ps1
 
 # functions
-. functions\chart.ps1
-. functions\host.ps1
+. "functions\chart.ps1"
+. "functions\host.ps1"
 
 # config
-. config\config.ps1
+. ".\config.ps1"
 
 # report template
-. templates\html.ps1
+. "templates\html.ps1"
 
 $sCurrentTime = Get-Date -Format yyyy.MM.dd
 [String]$sComputer = (Get-Item env:computername).Value
@@ -32,6 +32,7 @@ $sContent = "<h2>$sComputer Report</h2>"
 $sHtmlMessage = $sHtmlHeader1 + $sHtmlStyles + $sHtmlHeader2 + $sContent + $sHtmlFooter
 
 # Save the report out to a file in the current path
+New-Item -ItemType Directory -Force -Path ((Get-Location).Path + "\reports")
 $sHtmlMessage | Out-File ((Get-Location).Path + "\reports\" + $sCurrentTime + " Report.htm")
 
 #
