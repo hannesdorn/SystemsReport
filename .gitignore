@@ -1,6 +1,12 @@
+config/config\.ps1
+reports/*.htm
+SystemsReport\.zip
+
+todo.txt
+
 Beispiele
-2018.*\.png
-2018.*\.html
-SystemsReport\.cmd
-test\.ps1
-todo\.txt
+test.ps1
+test2.ps1
+test3.ps1
+test4.ps1
+test5.ps1
