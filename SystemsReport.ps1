@@ -11,7 +11,7 @@
 . config\config.ps1
 
 # report template
-. template\html.ps1
+. templates\html.ps1
 
 $sCurrentTime = Get-Date -Format yyyy.MM.dd
 [String]$sComputer = (Get-Item env:computername).Value
