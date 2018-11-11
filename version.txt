@@ -1,3 +1,7 @@
+Version 0.2.4
+modules\applicationevents.ps1: catch exceptions
+modules\systemevents.ps1: catch exceptions
+
 Version 0.2.3
 modules\applicationevents.ps1: Rename columne headings
 modules\serivce.ps1: Rename columne headings
