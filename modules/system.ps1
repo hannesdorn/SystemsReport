@@ -10,6 +10,8 @@ $UsedRAM = [Math]::Round($UsedRAM, 2)
 $RAMPercentFree = [Math]::Round($RAMPercentFree, 2)
 $Uptime = HostGetUptime($sComputer)
 
+$oProcessor = Get-WmiObject -computername $sComputer win32_processor | Measure-Object -property LoadPercentage -Average | Select Average
+
 # Create the chart using our Chart Function
 $sRamImage = ChartCreatePie "RAM Usage Chart (Used/Free)" "GB" $FreeRAM $UsedRAM
 
@@ -38,6 +40,10 @@ $sContent += @"
         <tr>
             <td>Free RAM</td>
             <td>$FreeRAM GB ($RAMPercentFree %)</td>
+        </tr>
+        <tr>
+            <td>Average CPU</td>
+            <td>$($oProcessor.Average) %</td>
         </tr>
 	</table>
 
