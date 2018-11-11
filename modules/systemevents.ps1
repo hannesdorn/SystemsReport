@@ -4,11 +4,11 @@ $oSystemEventsReport = @()
 $oSystemEvents = Get-EventLog -ComputerName $sComputer -LogName System -EntryType Error,Warning -after  (Get-Date).AddHours($iSystemEventLastHours * -1)
 
 foreach($oEvent in $oSystemEvents) {
-    $oRow = New-Object -Type PSObject -Property @{
-        TimeGenerated = $oEvent.TimeGenerated
-        EntryType = $oEvent.EntryType
-        Source = $oEvent.Source
-        Message = $oEvent.Message
+    $oRow = [pscustomobject][ordered]@{
+        "Time generated" = $oEvent.TimeGenerated
+        "Entry type" = $oEvent.EntryType
+        "Source" = $oEvent.Source
+        "Message" = $oEvent.Message
     }
     $oSystemEventsReport += $oRow
 }

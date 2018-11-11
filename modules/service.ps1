@@ -1,10 +1,10 @@
 $oServicesReport = @()
 $oServices = Get-WmiObject -Class Win32_Service -ComputerName $sComputer | Where-Object {($_.StartMode -eq "Auto") -and ($_.State -eq "Stopped")}
 foreach($oService in $oServices) {
-    $oRow = New-Object -Type PSObject -Property @{
-        Name = $oService.Name
-        Status = $oService.State
-        StartMode = $oService.StartMode
+    $oRow = [pscustomobject][ordered]@{
+        "Name" = $oService.Name
+        "Status" = $oService.State
+        "Start mode" = $oService.StartMode
     }
     $oServicesReport += $oRow
 }

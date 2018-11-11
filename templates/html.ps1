@@ -27,20 +27,22 @@ $sHtmlHeader1 = @"
             width: 100%;
         }
 
-        td {
-            font-size: 12px;
-            padding-left: 0px;
-            padding-right: 20px;
-            text-align: left;
-            word-break: break-all;
-        }
-
         th {
             font-size: 12px;
             font-weight: bold;
             padding-left: 0px;
             padding-right: 20px;
             text-align: left;
+            vertical-align: top;
+        }
+
+        td {
+            font-size: 12px;
+            padding-left: 0px;
+            padding-right: 20px;
+            text-align: left;
+            vertical-align: top;
+            word-break: break-all;
         }
 
         h2 {

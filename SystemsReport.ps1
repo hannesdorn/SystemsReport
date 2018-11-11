@@ -32,22 +32,25 @@ $sContent = "<h2>$sComputer Report</h2>"
 $sHtmlMessage = $sHtmlHeader1 + $sHtmlStyles + $sHtmlHeader2 + $sContent + $sHtmlFooter
 
 # Save the report out to a file in the current path
-New-Item -ItemType Directory -Force -Path ((Get-Location).Path + "\reports")
+if (!(Test-Path((Get-Location).Path + "\reports"))) {
+    $x = New-Item -ItemType Directory -Path ((Get-Location).Path + "\reports")
+}
+
 $sHtmlMessage | Out-File ((Get-Location).Path + "\reports\" + $sCurrentTime + " Report.htm")
 
 #
 # Email report
 #
 
-$oSmtpClient = new-object Net.Mail.SmtpClient($sMailServer)
+$oSmtpClient = New-Object Net.Mail.SmtpClient($sMailServer)
 
-$oMailMessage = new-object Net.Mail.MailMessage
+$oMailMessage = New-Object Net.Mail.MailMessage
 $oMailMessage.From = $sMailFrom
 $oMailMessage.ReplyTo = $sMailFrom
 foreach($sTo in $sMailTo) {
     $oMailMessage.To.Add($sTo)
 }
-$oMailMessage.subject = "Systems Report $sComputer"
+$oMailMessage.Subject = "Systems Report $sComputer"
 $oMailMessage.IsBodyHtml = $true
 $oMailMessage.Body = $sHtmlMessage
 

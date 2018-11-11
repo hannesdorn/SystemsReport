@@ -1,9 +1,9 @@
 $oWindowsUpdate = @()
 
 $oService = Get-WmiObject Win32_Service -Filter 'Name="wuauserv"' -ComputerName $sComputer -Ea 0
-$sWUStartMode = $service.StartMode
-$sWUState = $service.State
-$sWUStatus = $service.Status
+$sWUStartMode = $oService.StartMode
+$sWUState = $oService.State
+$sWUStatus = $oService.Status
 
 try {
     if (Test-Connection -ComputerName $sComputer -Count 1 -Quiet) {
@@ -74,13 +74,13 @@ If ($fCBSRebootPend –OR $fWUAURebootReq) {
 # Closing registry connection
 $oRegCon.Close()
 
-$oRow = New-Object PSObject -Property @{
-    WindowsUpdateStatus = $sWUStartMode + "/" + $sWUState + "/" + $sWUStatus
-    UpdatesToInstall = $fUpdatesToInstall
-    TotalOfUpdates = $iTotalUpdates
-    TotalOfCriticalUpdates = $iTotalCriticalUp
-    TotalOfImportantUpdates = $iTotalImportantUp
-    RebootPending = $fMachineNeedsRestart
+$oRow = [pscustomobject][ordered]@{
+    "WindowsUpdate Status" = $sWUStartMode + "/" + $sWUState + "/" + $sWUStatus
+    "Updates to install" = $fUpdatesToInstall
+    "Total of updates" = $iTotalUpdates
+    "Total of critical updates" = $iTotalCriticalUp
+    "Total of important updates" = $iTotalImportantUp
+    "Reboot pending" = $fMachineNeedsRestart
 }
 $oWindowsUpdate += $oRow
 $sWindowsUpdate = $oWindowsUpdate | ConvertTo-Html -Fragment
