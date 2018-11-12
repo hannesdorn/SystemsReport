@@ -1,3 +1,6 @@
+Version 0.2.5
+System: Exchanged free RAM and free Disk with used RAM and used Disk
+
 Version 0.2.4
 modules\applicationevents.ps1: catch exceptions
 modules\systemevents.ps1: catch exceptions
