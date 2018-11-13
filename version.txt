@@ -1,3 +1,6 @@
+Version 0.2.6
+SystemsReport.cmd: Fixing problem with path
+
 Version 0.2.5
 System: Exchanged free RAM and free Disk with used RAM and used Disk
 

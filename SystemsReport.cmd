@@ -1,2 +1,3 @@
 @echo off
-powershell -File SystemsReport.ps1
+cd "%~dp0"
+powershell -File "%~dp0%~n0.ps1"
