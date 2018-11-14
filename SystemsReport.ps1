@@ -23,10 +23,10 @@ $sContent = "<h2>$sComputer Report</h2>"
 . "modules\system.ps1"
 . "modules\disk.ps1"
 . "modules\windowsupdate.ps1"
-. "modules\process.ps1"
-. "modules\service.ps1"
 . "modules\systemevents.ps1"
 . "modules\applicationevents.ps1"
+. "modules\service.ps1"
+. "modules\process.ps1"
 
 # Assemble the final report from all our HTML sections
 $sHtmlMessage = $sHtmlHeader1 + $sHtmlStyles + $sHtmlHeader2 + $sContent + $sHtmlFooter
