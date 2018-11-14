@@ -1,3 +1,6 @@
+Version 0.2.9
+Added credentials for smtp
+
 Version 0.2.8
 Reordered modules
 Added filter for services

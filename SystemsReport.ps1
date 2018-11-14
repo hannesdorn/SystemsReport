@@ -43,6 +43,7 @@ $sHtmlMessage | Out-File ((Get-Location).Path + "\reports\" + $sCurrentTime + " 
 #
 
 $oSmtpClient = New-Object Net.Mail.SmtpClient($sMailServer)
+$oSmtpClient.Credentials = New-Object System.Net.NetworkCredential($sMailUsername, $sMailPassword);
 
 $oMailMessage = New-Object Net.Mail.MailMessage
 $oMailMessage.From = $sMailFrom

@@ -4,6 +4,8 @@
 
 # SMTP server
 [string]$sMailServer = "host.domain.loc"
+[string]$sMailUsername = ""
+[string]$sMailPassword = ""
 
 # Sender
 [string]$sMailFrom = "administrator@domain.loc"
