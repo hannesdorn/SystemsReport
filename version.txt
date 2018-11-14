@@ -1,3 +1,7 @@
+Version 0.2.8
+Reordered modules
+Added filter for services
+
 Version 0.2.7
 SystemsReport.cmd: Fixing problem with drive
 
