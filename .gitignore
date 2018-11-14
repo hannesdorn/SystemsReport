@@ -1,11 +1,6 @@
-config/config\.ps1
+config\.ps1
 reports/*.htm
 
 todo.txt
 
 Beispiele
-test.ps1
-test2.ps1
-test3.ps1
-test4.ps1
-test5.ps1
