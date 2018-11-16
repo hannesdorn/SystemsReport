@@ -3,15 +3,17 @@
 #
 
 # SMTP server
-[string]$sMailServer = "host.domain.loc"
-[string]$sMailUsername = ""
-[string]$sMailPassword = ""
+$sMailServer = "host.domain.loc"
+$sMailServerPort = "25"
+$sMailUsername = ""
+$sMailPassword = ""
+$fMailServerSSL = $false
 
 # Sender
-[string]$sMailFrom = "administrator@domain.loc"
+$sMailFrom = "administrator@domain.loc"
 
 # Recipients, seperated by ","
-[string]$sMailTo = "it@domain.loc"
+$sMailTo = "it@domain.loc"
 
 
 #
@@ -19,7 +21,7 @@
 #
 
 # Minimum diskspace in %
-[int]$iDiskspace = 20
+$iDiskspace = 20
 
 
 #
@@ -27,7 +29,7 @@
 #
 
 # Number of top processes
-[int]$iProccesses = 10
+$iProccesses = 10
 
 
 #
@@ -35,7 +37,7 @@
 #
 
 # Display events for the last hours
-[int]$iSystemEventLastHours = 25
+$iSystemEventLastHours = 25
 
 
 #
@@ -43,4 +45,4 @@
 #
 
 # Display events for the last hours
-[int]$iApplicationEventLastHours = 25
+$iApplicationEventLastHours = 25

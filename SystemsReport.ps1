@@ -3,14 +3,27 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-# functions
+# Functions
 . "functions\chart.ps1"
 . "functions\host.ps1"
 
-# config
+# Default settings
+[string]$sMailServer = "host.domain.loc"
+[string]$sMailServerPort = "25"
+[string]$sMailUsername = ""
+[string]$sMailPassword = ""
+[bool]$fMailServerSSL = $false
+[string]$sMailFrom = "administrator@domain.loc"
+[string]$sMailTo = "it@domain.loc"
+[int]$iDiskspace = 20
+[int]$iProccesses = 10
+[int]$iSystemEventLastHours = 25
+[int]$iApplicationEventLastHours = 25
+
+# Config
 . ".\config.ps1"
 
-# report template
+# Report template
 . "templates\html.ps1"
 
 $sCurrentTime = Get-Date -Format yyyy.MM.dd
@@ -42,7 +55,8 @@ $sHtmlMessage | Out-File ((Get-Location).Path + "\reports\" + $sCurrentTime + " 
 # Email report
 #
 
-$oSmtpClient = New-Object Net.Mail.SmtpClient($sMailServer)
+$oSmtpClient = New-Object Net.Mail.SmtpClient($sMailServer, $sMailServerPort)
+$oSmtpClient.EnableSsl = $fMailServerSSL
 $oSmtpClient.Credentials = New-Object System.Net.NetworkCredential($sMailUsername, $sMailPassword);
 
 $oMailMessage = New-Object Net.Mail.MailMessage

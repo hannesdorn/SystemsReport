@@ -1,3 +1,7 @@
+Version 0.2.10
+Added parameters for smtp server port and encryption
+Added default values for paramters into mainfile
+
 Version 0.2.9
 Added credentials for smtp
 
