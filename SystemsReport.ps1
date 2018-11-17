@@ -6,6 +6,7 @@
 # Functions
 . "functions\chart.ps1"
 . "functions\host.ps1"
+. "functions\sendreport.ps1"
 
 # Default settings
 [string]$sMailServer = "host.domain.loc"
@@ -54,19 +55,4 @@ $sHtmlMessage | Out-File ((Get-Location).Path + "\reports\" + $sCurrentTime + " 
 #
 # Email report
 #
-
-$oSmtpClient = New-Object Net.Mail.SmtpClient($sMailServer, $sMailServerPort)
-$oSmtpClient.EnableSsl = $fMailServerSSL
-$oSmtpClient.Credentials = New-Object System.Net.NetworkCredential($sMailUsername, $sMailPassword);
-
-$oMailMessage = New-Object Net.Mail.MailMessage
-$oMailMessage.From = $sMailFrom
-$oMailMessage.ReplyTo = $sMailFrom
-foreach($sTo in $sMailTo) {
-    $oMailMessage.To.Add($sTo)
-}
-$oMailMessage.Subject = "Systems Report $sComputer"
-$oMailMessage.IsBodyHtml = $true
-$oMailMessage.Body = $sHtmlMessage
-
-$oSmtpClient.Send($oMailMessage)
+SendReport $sMailServer $sMailServerPort $fMailServerSSL $sMailUsername $sMailPassword $sMailFrom $sMailTo "Systems Report $sComputer" $sHtmlMessage
