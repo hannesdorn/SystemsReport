@@ -1,3 +1,6 @@
+Version 0.2.12
+Adding timestamp to filename and title
+
 Version 0.2.11
 Move email to function sendreport
 

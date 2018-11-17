@@ -27,13 +27,14 @@
 # Report template
 . "templates\html.ps1"
 
-$sCurrentTime = Get-Date -Format yyyy.MM.dd
+[string]$sCurrentTimeString = Get-Date -Format "dd.MM.yyyy HH:mm:ss"
+[string]$sCurrentTime = Get-Date -Format "yyyy-MM-dd HH-mm-ss"
 [String]$sComputer = (Get-Item env:computername).Value
 
 #
 # Create the report parts
 #
-$sContent = "<h2>$sComputer Report</h2>"
+$sContent = "<h2>$sComputer Report $sCurrentTimeString</h2>"
 . "modules\system.ps1"
 . "modules\disk.ps1"
 . "modules\windowsupdate.ps1"
