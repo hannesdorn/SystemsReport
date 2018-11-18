@@ -1,6 +1,6 @@
 $oServicesReport = @()
 
-$oServices = Get-WmiObject -Class Win32_Service -ComputerName $sComputer | Where-Object {($_.StartMode -eq "Auto") -and ($_.State -match "Stopped|.*Starting|.*Paused") -and ($_.Name -notmatch "CDPSvc.*|.*gupdate|.*RemoteRegistry|.*MapsBroker|.*sppsvc|.*WbioSrvc|*ShellHWDetection|.*iphlpsvc|.*tiledatamodelsvc|.*clr_optimization_v4.0.30319_64|.*clr_optimization_v4.0.30319_32")}
+$oServices = Get-WmiObject -Class Win32_Service -ComputerName $sComputer | Where-Object {($_.StartMode -eq "Auto") -and ($_.State -match "Stopped|.*Starting|.*Paused") -and ($_.Name -notmatch "CDPSvc.*|.*gupdate|.*RemoteRegistry|.*MapsBroker|.*sppsvc|.*WbioSrvc|.*ShellHWDetection|.*iphlpsvc|.*tiledatamodelsvc|.*clr_optimization_v4.0.30319_64|.*clr_optimization_v4.0.30319_32")}
 foreach($oService in $oServices) {
     $oRow = [pscustomobject][ordered]@{
         "Name" = $oService.Name

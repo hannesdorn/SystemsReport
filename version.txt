@@ -1,4 +1,7 @@
-Verson 0.2.13
+Version 0.2.14
+Ignore service ShellHWDetection fixed
+
+Version 0.2.13
 Set maxwidth of report to 900px
 Ignore service ShellHWDetection
 
