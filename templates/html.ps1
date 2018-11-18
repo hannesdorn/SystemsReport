@@ -88,7 +88,7 @@ $sHtmlHeader1 = @"
         }
 
         .report {
-            max-width: 700px;
+            max-width: 900px;
         }
 "@
 

@@ -1,3 +1,7 @@
+Verson 0.2.13
+Set maxwidth of report to 900px
+Ignore service ShellHWDetection
+
 Version 0.2.12
 Adding timestamp to filename and title
 
