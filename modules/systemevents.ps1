@@ -19,6 +19,16 @@ try {
 }
 
 foreach($oEvent in $oSystemEvents) {
+    if (
+        ($oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "10" -and $oEvent.ReplacementStrings[1] -eq "1203") `
+        -or ($oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "40" -and $oEvent.ReplacementStrings[1] -eq "1205") `
+        -or ($oEvent.Source -eq "KLIF" -and $oEvent.EventID -eq 5 -and $oEvent.EntryType -eq "Error") `
+        -or ($oEvent.Source -eq "Disk" -and $oEvent.EventID -eq 51 -and $oEvent.EntryType -eq "Warning") `
+        -or ($oEvent.Source -eq "FilterManager" -and $oEvent.EventID -eq 3 -and $oEvent.EntryType -eq "Error")
+    ) {
+        Continue
+    }
+
     $oRow = [pscustomobject][ordered]@{
         "Time generated" = $oEvent.TimeGenerated
         "Entry type" = $oEvent.EntryType

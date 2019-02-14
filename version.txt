@@ -1,3 +1,7 @@
+Version 0.2.15
+Removed images from system.ps1
+Added filter to systemevents.ps1 (hardcoded for now)
+
 Version 0.2.14
 Ignore service ShellHWDetection fixed
 

@@ -13,13 +13,13 @@ $Uptime = HostGetUptime($sComputer)
 $oProcessor = Get-WmiObject -computername $sComputer win32_processor | Measure-Object -property LoadPercentage -Average | Select Average
 
 # Create the chart using our Chart Function
-$sRamImage = ChartCreatePie "RAM usage (Used/Free)" "GB" $UsedRAM $FreeRAM
+#$sRamImage = ChartCreatePie "RAM usage (Used/Free)" "GB" $UsedRAM $FreeRAM
 
 # Get free space of C:
 $oVolumeC = Get-WmiObject -Class win32_Volume -ComputerName $sComputer -Filter "DriveLetter = 'C:'" | Select-object @{n='UsedSpace'; Expression = {"{0:N2}" -f  (($_.Capacity - $_.FreeSpace)/1gb)}}, @{n='Percent'; Expression = {"{0:N2}" -f  ((($_.Capacity - $_.FreeSpace) / $_.Capacity) * 100)}}, @{n='Capacity';e={"{0:n2}" -f ($_.capacity/1gb)}}, @{n='FreeSpace';e={"{0:n2}" -f ($_.freespace/1gb)}}
 
 # Create the chart using our Chart Function
-$sCImage = ChartCreatePie "C usage  (Used/Free)" "GB" $oVolumeC.UsedSpace $oVolumeC.FreeSpace
+#$sCImage = ChartCreatePie "C usage  (Used/Free)" "GB" $oVolumeC.UsedSpace $oVolumeC.FreeSpace
 
 $sContent += @"
 	<h3>System Info</h3>
@@ -45,7 +45,7 @@ $sContent += @"
             <td>$($oVolumeC.'Percent') % ($($oVolumeC.UsedSpace) GB) of $($oVolumeC.Capacity) GB used</td>
         </tr>
 	</table>
-
-    <img src="data:image/png;base64,$sRamImage" class="system__chart-ram">
-    <img src="data:image/png;base64,$sCImage" class="system__chart-c">
 "@
+
+#    <img src="data:image/png;base64,$sRamImage" class="system__chart-ram">
+#    <img src="data:image/png;base64,$sCImage" class="system__chart-c">
