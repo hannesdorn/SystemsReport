@@ -1,3 +1,6 @@
+Version 0.2.16
+Added more filters to systemevents.ps1
+
 Version 0.2.15
 Removed images from system.ps1
 Added filter to systemevents.ps1 (hardcoded for now)
