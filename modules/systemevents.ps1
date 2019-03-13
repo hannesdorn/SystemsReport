@@ -34,6 +34,7 @@ foreach($oEvent in $oSystemEvents) {
     $oRow = [pscustomobject][ordered]@{
         "Time generated" = $oEvent.TimeGenerated
         "Entry type" = $oEvent.EntryType
+        "ID" = $oEvent.EventID
         "Source" = $oEvent.Source
         "Message" = $oEvent.Message
     }
