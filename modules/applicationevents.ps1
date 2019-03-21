@@ -20,8 +20,9 @@ try {
 
 foreach($oEvent in $oApplicationEvents) {
     $oRow = [pscustomobject][ordered]@{
-        "Time generated" = $oEvent.TimeGenerated
-        "Entry type" = $oEvent.EntryType
+        "Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.TimeGenerated
+        "Entry&nbsp;type" = $oEvent.EntryType
+        "ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.EventID
         "Source" = $oEvent.Source
         "Message" = $oEvent.Message
     }

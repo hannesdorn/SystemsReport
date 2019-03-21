@@ -20,7 +20,8 @@ try {
 
 foreach($oEvent in $oSystemEvents) {
     if (
-        ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "10" -and $oEvent.ReplacementStrings[1] -eq "1203") `
+            ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "10" -and $oEvent.ReplacementStrings[1] -eq "1200") `
+        -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "10" -and $oEvent.ReplacementStrings[1] -eq "1203") `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "40" -and $oEvent.ReplacementStrings[1] -eq "1205") `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36874) `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36887) `
@@ -32,9 +33,9 @@ foreach($oEvent in $oSystemEvents) {
     }
 
     $oRow = [pscustomobject][ordered]@{
-        "Time generated" = $oEvent.TimeGenerated
-        "Entry type" = $oEvent.EntryType
-        "ID" = $oEvent.EventID
+        "Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.TimeGenerated
+        "Entry&nbsp;type" = $oEvent.EntryType
+        "ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.EventID
         "Source" = $oEvent.Source
         "Message" = $oEvent.Message
     }

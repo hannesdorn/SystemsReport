@@ -1,3 +1,7 @@
+Version 0.3.2
+Application Events: output event ID
+System Event: added more filters for schannel events
+
 Version 0.3.1
 Fixed path to config.ps1
 
