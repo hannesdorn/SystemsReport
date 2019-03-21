@@ -23,7 +23,7 @@
 [int]$iApplicationEventLastHours = 25
 
 # Config
-. ".\config.ps1"
+. ".\config\config.ps1"
 
 # Report template
 . "templates\html.ps1"
