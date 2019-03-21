@@ -1,15 +1,14 @@
 ## Synopsis
 
-Small Powershell-Script to generate a systems report and sending it as an email.
+Small Powershell-Script to generate a systems report and send it as an email.
 
 ## How to start
 
-see SystemsReport.sample.cmd
+see SystemsReport.cmd
 
 ## Installation
 
-Copy all files into a directory. Copy SystemsReport.sample.cmd to SystemsReport.cmd and modify it.
-If missing, install MSChart.exe.
+Copy all files into a directory. Edit config/config.ps1.
 
 ## Contributors
 

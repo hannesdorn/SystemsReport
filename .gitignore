@@ -1,5 +1,6 @@
-config\.ps1
+config/config\.ps1
 reports/*.htm
+releases/
 
 todo.txt
 

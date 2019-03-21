@@ -3,8 +3,9 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
+[string]$sVersion = "0.3.0"
+
 # Functions
-. "functions\chart.ps1"
 . "functions\host.ps1"
 . "functions\sendreport.ps1"
 
@@ -34,7 +35,7 @@
 #
 # Create the report parts
 #
-$sContent = "<h2>$sComputer Report $sCurrentTimeString</h2>"
+$sContent = "<h2>$sComputer Report $sCurrentTimeString ($sVersion)</h2>"
 . "modules\system.ps1"
 . "modules\disk.ps1"
 . "modules\windowsupdate.ps1"

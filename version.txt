@@ -1,3 +1,8 @@
+Version 0.3.0
+Remove mschart.exe and functions/chart.ps1
+Output version number of Systemsreport
+Removed Systemsreport.zip, moved to github releases
+
 Version 0.2.18
 Updated SystemsReport.zip
 
