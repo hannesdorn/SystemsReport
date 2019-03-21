@@ -4,3 +4,4 @@ set filename=releases\SystemsReport-v%1.zip
 
 if exist %filename% del %filename%
 zip.exe %filename% SystemsReport.cmd SystemsReport.ps1 config\config-sample.ps1 functions\* modules\* templates\* version.txt
+CertUtil -hashfile %filename% sha256 | find /V "SHA256-Hash" | find /V "CertUtil" > %filename%.sha256
