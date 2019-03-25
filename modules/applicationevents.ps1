@@ -2,7 +2,7 @@ $oApplicationEventsReport = @()
 
 try {
     $sError = ""
-    $oApplicationEvents = Get-EventLog -ComputerName $sComputer -LogName "Application" -EntryType Error,Warning -after (Get-Date).AddHours($iApplicationEventLastHours * -1) -ErrorAction Stop
+    $oApplicationEvents = Get-EventLog -ComputerName $sComputer -LogName "Application" -EntryType Critical,Error,Warning -after (Get-Date).AddHours($iApplicationEventLastHours * -1) -ErrorAction Stop
 } catch [Exception]{
     $oError = $_
     switch($oError.Exception.GetType().FullName) {

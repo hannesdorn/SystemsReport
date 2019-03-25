@@ -2,7 +2,7 @@ $oSystemEventsReport = @()
 
 try {
     $sError = ""
-    $oSystemEvents = Get-EventLog -ComputerName $sComputer -LogName "System" -EntryType Error,Warning -after (Get-Date).AddHours($iSystemEventLastHours * -1) -ErrorAction Stop
+    $oSystemEvents = Get-EventLog -ComputerName $sComputer -LogName "System" -EntryType Critical,Error,Warning -after (Get-Date).AddHours($iSystemEventLastHours * -1) -ErrorAction Stop
 } catch [Exception]{
     $oError = $_
     switch($oError.Exception.GetType().FullName) {
@@ -27,7 +27,8 @@ foreach($oEvent in $oSystemEvents) {
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36887) `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "KLIF" -and $oEvent.EventID -eq 5) `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Disk" -and $oEvent.EventID -eq 51) `
-        -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "FilterManager" -and $oEvent.EventID -eq 3)
+        -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Microsoft-Windows-FilterManager" -and $oEvent.EventID -eq 3) `
+        -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "disk" -and $oEvent.EventID -eq 51)
     ) {
         Continue
     }

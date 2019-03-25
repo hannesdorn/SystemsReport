@@ -1,3 +1,8 @@
+Version 0.3.4
+Added system events filters for Microsoft-Windows-FilterManager ID 3 and disk ID 51
+Added critical system events
+Added critical application events
+
 Version 0.3.3
 Added update.cmd for automatic update via scoop
 
