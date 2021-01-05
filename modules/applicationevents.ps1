@@ -19,6 +19,12 @@ try {
 }
 
 foreach($oEvent in $oApplicationEvents) {
+    if (
+        ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "ASP.NET 4.0.30319.0" -and $oEvent.EventID -eq 1309)
+    ) {
+        Continue
+    }
+
     $oRow = [pscustomobject][ordered]@{
         "Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.TimeGenerated
         "Entry&nbsp;type" = $oEvent.EntryType
