@@ -1,3 +1,9 @@
+Version 0.3.8
+Application Warning MSExchangeApplicationLogic 3028 (Killbit) filtered
+
+Version 0.3.7
+Fixed commented function calls
+
 Version 0.3.6
 Added Mailtest.cmd and Mailtest.ps1
 

@@ -20,7 +20,8 @@ try {
 
 foreach($oEvent in $oApplicationEvents) {
     if (
-        ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "ASP.NET 4.0.30319.0" -and $oEvent.EventID -eq 1309)
+            ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "ASP.NET 4.0.30319.0" -and $oEvent.EventID -eq 1309) `
+        -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "MSExchangeApplicationLogic" -and $oEvent.EventID -eq 3028)
     ) {
         Continue
     }
