@@ -20,8 +20,12 @@ try {
 
 foreach($oEvent in $oApplicationEvents) {
     if (
+            # Exchange Events Filtern
+            # https://support.microsoft.com/en-us/topic/event-ids-1003-1309-and-4999-are-logged-after-installing-exchange-server-2019-cu8-1295c555-d590-4a06-a53a-c14a0f363ee3
             ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "ASP.NET 4.0.30319.0" -and $oEvent.EventID -eq 1309) `
-        -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "MSExchangeApplicationLogic" -and $oEvent.EventID -eq 3028)
+        -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "MSExchangeApplicationLogic" -and $oEvent.EventID -eq 3028) `
+        -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "MSExchange Front End HTTP" -and $oEvent.EventID -eq 1003) `
+        -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "MSExchange Common" -and $oEvent.EventID -eq 4999)
     ) {
         Continue
     }

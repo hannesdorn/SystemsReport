@@ -1,3 +1,7 @@
+Version 0.3.9
+Application Error "MSExchange Front End HTTP" 1003 filtered
+Application Error "MSExchange Common" 4999 filtered
+
 Version 0.3.8
 Application Warning MSExchangeApplicationLogic 3028 (Killbit) filtered
 
