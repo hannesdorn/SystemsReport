@@ -28,6 +28,7 @@ foreach($oEvent in $oSystemEvents) {
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "KLIF" -and $oEvent.EventID -eq 5) `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Disk" -and $oEvent.EventID -eq 51) `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Microsoft-Windows-FilterManager" -and $oEvent.EventID -eq 3) `
+        -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "UmrdpService" -and $oEvent.EventID -eq 1111) `
         -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "disk" -and $oEvent.EventID -eq 51)
     ) {
         Continue
