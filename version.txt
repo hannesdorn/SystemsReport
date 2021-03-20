@@ -1,3 +1,6 @@
+Version 0.3.11
+System Warning "DCOM" 10016 filtered
+
 Version 0.3.10
 System Error "UmrdpService" 1111 filtered
 

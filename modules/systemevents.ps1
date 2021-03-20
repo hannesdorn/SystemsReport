@@ -19,6 +19,8 @@ try {
 }
 
 foreach($oEvent in $oSystemEvents) {
+    # https://support.microsoft.com/de-de/help/4022522/dcom-event-id-10016-is-logged-in-windows-10-windows-server
+    # https://support.microsoft.com/de-de/help/4022522/dcom-event-id-10016-is-logged-in-windows
     if (
             ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "10" -and $oEvent.ReplacementStrings[1] -eq "1200") `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Schannel" -and $oEvent.EventID -eq 36888 -and $oEvent.ReplacementStrings[0] -eq "10" -and $oEvent.ReplacementStrings[1] -eq "1203") `
@@ -29,7 +31,8 @@ foreach($oEvent in $oSystemEvents) {
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Disk" -and $oEvent.EventID -eq 51) `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "Microsoft-Windows-FilterManager" -and $oEvent.EventID -eq 3) `
         -or ($oEvent.EntryType -eq "Error" -and $oEvent.Source -eq "UmrdpService" -and $oEvent.EventID -eq 1111) `
-        -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "disk" -and $oEvent.EventID -eq 51)
+        -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "disk" -and $oEvent.EventID -eq 51) `
+        -or ($oEvent.EntryType -eq "Warning" -and $oEvent.Source -eq "DCOM" -and $oEvent.EventID -eq 10016)
     ) {
         Continue
     }

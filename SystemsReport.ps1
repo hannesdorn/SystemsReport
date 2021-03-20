@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.3.10"
+[string]$sVersion = "0.3.11"
 
 # Functions
 . "functions\host.ps1"
