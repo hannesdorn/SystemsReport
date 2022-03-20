@@ -3,11 +3,17 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.3.11"
+[string]$sVersion = "0.4.0"
 
 # Functions
 . "functions\host.ps1"
 . "functions\sendreport.ps1"
+
+class Eventfilter {
+    [string]$Level      # 1 = Critical, 2 = Error, 3 = Warning,
+    [string]$ProviderName
+    [int]$Id
+}
 
 # Default settings
 [string]$sMailServer = "host.domain.loc"
@@ -20,7 +26,9 @@
 [int]$iDiskspace = 20
 [int]$iProccesses = 10
 [int]$iSystemEventLastHours = 25
+[array]$aSystemEventEventfilter = @()
 [int]$iApplicationEventLastHours = 25
+[array]$aApplicationEventEventfilter = @()
 
 # Config
 . ".\config\config.ps1"

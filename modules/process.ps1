@@ -1,4 +1,4 @@
-$sTopProcesses = Get-Process -ComputerName $sComputer | Sort WS -Descending | Select ProcessName, Id, @{n='Working Set (MB)';e={"{0:n2}" -f ($_.ws/1mb)}} -First $iProccesses | ConvertTo-Html -Fragment
+$sTopProcesses = Get-Process | Sort WS -Descending | Select ProcessName, Id, @{n='Working Set (MB)';e={"{0:n2}" -f ($_.ws/1mb)}} -First $iProccesses | ConvertTo-Html -Fragment
 
 $sContent += @"
     <h3>System Processes - Top $iProccesses Highest Memory Usage</h3>

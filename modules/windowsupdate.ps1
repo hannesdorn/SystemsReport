@@ -1,8 +1,9 @@
 $oWindowsUpdate = @()
 
-$oService = Get-WmiObject Win32_Service -Filter 'Name="wuauserv"' -ComputerName $sComputer -Ea 0
-$sWUStartMode = $oService.StartMode
-$sWUState = $oService.State
+#$oService = Get-WmiObject Win32_Service -Filter 'Name="wuauserv"' -ComputerName $sComputer -Ea 0
+$oService = Get-Service -Name "wuauserv"
+
+$sWUStartMode = $oService.StartType
 $sWUStatus = $oService.Status
 
 try {
@@ -44,28 +45,18 @@ try {
     $fUpdatesToInstall = $false
 }
 
-# Querying WMI for build version
-$oWMI_OS = Get-WmiObject -Class Win32_OperatingSystem -Property BuildNumber, CSName -ComputerName $sComputer -Authentication PacketPrivacy -Impersonation Impersonate
-
 # Making registry connection to the local/remote computer
 $oRegCon = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey([Microsoft.Win32.RegistryHive]"LocalMachine", $sComputer)
 
-# If Vista/2008 & Above query the CBS Reg Key
-If ($oWMI_OS.BuildNumber -ge 6001)
-{
-    $oRegSubKeysCBS = $oRegCon.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\").GetSubKeyNames()
-    $fCBSRebootPend = $oRegSubKeysCBS -contains "RebootPending"
-}
-else{
-    $fCBSRebootPend = "undefined"
-}
+$oRegSubKeysCBS = $oRegCon.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\").GetSubKeyNames()
+$fCBSRebootPend = $oRegSubKeysCBS -contains "RebootPending"
 
 # Query WUAU from the registry
 $oRegWUAU = $oRegCon.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\")
 $oRegSubKeysWUAU = $oRegWUAU.GetSubKeyNames()
 $fWUAURebootReq = $oRegSubKeysWUAU -contains "RebootRequired"
 
-If ($fCBSRebootPend –OR $fWUAURebootReq) {
+If ($fCBSRebootPend -or $fWUAURebootReq) {
     $fMachineNeedsRestart = $true
 } else {
     $fMachineNeedsRestart = $false
@@ -75,7 +66,8 @@ If ($fCBSRebootPend –OR $fWUAURebootReq) {
 $oRegCon.Close()
 
 $oRow = [pscustomobject][ordered]@{
-    "WindowsUpdate Status" = $sWUStartMode + "/" + $sWUState + "/" + $sWUStatus
+    "Windows Update Service" = $sWUStartMode
+    "Windows Update Status" = $sWUStatus
     "Updates to install" = $fUpdatesToInstall
     "Total of updates" = $iTotalUpdates
     "Total of critical updates" = $iTotalCriticalUp
