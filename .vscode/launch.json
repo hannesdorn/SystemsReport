@@ -15,7 +15,7 @@
             "name": "PowerShell: Launch Script",
             "type": "PowerShell",
             "request": "launch",
-            "script": "SystemsReport.ps1",
+            "script": "${workspaceFolder}\\SystemsReport.ps1",
             "cwd": "${workspaceFolder}"
         }
     ]
