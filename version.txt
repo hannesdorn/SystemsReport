@@ -1,3 +1,9 @@
+Version 0.4.1
+Disk: Added config $aDiskspace
+SystemEvents: Sort by date ascending
+ApplicationEvents: Sort by date ascending
+System: Output free RAM and free diskspace on volume C
+
 Version 0.4.0
 Code rewrite to make it compatible with powershell 7.2
 Added custom eventfilter $aSystemEventEventfilter and $aApplicationEventEventfilter in config.ps1

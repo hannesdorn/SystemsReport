@@ -9,13 +9,15 @@ git commit
 git push
 make.cmd 0.3.2
 https://github.com/hannesdorn/SystemsReport/releases
-Draft n new release
+Draft a new release
 Tag version: v0.3.2
 SystemsReport-v0.3.2.zip
 SystemsReport-v0.3.2.zip.sha256
 Scoop Bucket aktualisieren:
 cd D:\Daten\Projekte\Dorn\scoop-dorn
 update.cmd
+
+---------------------------------------------------------------------------------------------------
 
 Backup
 Eigener Events-Liste nur für Backup, alle Nachrichten, nicht nur Warnungen und Fehler
@@ -28,28 +30,17 @@ Eigene Datei: lastrun.txt
 
 Config:
 JIC Server04:
-System: Warning	157	Disk	Der Datenträger "3" wurde überraschend entfernt.
-System: Warning	58	partmgr	Die Datenträgersignatur von Datenträger "3" ist mit der Datenträgersignatur von Datenträger "1" identisch.
-System: Warning	158	Disk	Der Datenträger "3" verfügt über dieselben Datenträger-IDs wie ein oder mehrere Datenträger, die mit dem System verbunden sind. Rufen Sie die Microsoft-Supportwebsite (http://support.microsoft.com) auf, und suchen Sie nach KB2983588, um das Problem zu beheben.
-
 Application: Error	12017	MSExchangeTransportDelivery	An internal transport certificate will expire soon. Thumbprint:FFF09C45D3CFA388CF98458AA91A4CB1DF400E56, expires: 04.03.2022 12:00:00
 expires: 04.03.2022 12:00:00 Erst ab 2 Wochen anzeigen
 
 Pro Server pro Festplatte festlegen, wie viel freier Speicher noch vorhanden sein muß
 Default: 10 %, mindestens 10 GB
 
-
 Mailtest.ps1
 Fehlermeldung ausgeben, wenn Fehler, zb. Zieladresse leer ist
 
-
 HyperV Replikation prüfen
 https://www.serverwatch.com/server-tutorials/checking-hyper-v-replication-health-using-powershell-cmdlets.html
-
-
-Events:
-Sortierung nach Datum/Uhrzeit aufsteigend
-
 
 Logfile mit den Aktivitäten erstellen
 Logfile bei bestimmter Größe wechseln
@@ -62,30 +53,23 @@ Event ignorieren
 02.10.2020 08:04:41	Error	1111	UmrdpService
 Der für den Drucker Fax - HP Officejet Pro 8620 (Netzwerk) erforderliche Treiber Fax - HP Officejet Pro 8620 ist unbekannt. Wenden Sie sich an den Administrator, um den Treiber zu installieren, bevor Sie sich erneut anmelden.
 
-
 DCOM 10009 DCOM konnte mit dem Computer "E3-HP.kramess.local" unter Verwendung eines beliebigen, konfigurierten Protokolls keine Daten austauschen.
 -> kann ignoriert werden
 
-
 08.04.2019 16:36:50	Warning	4374	Microsoft-Windows-Servicing	Windows-Wartung hat erkannt, dass das Paket KB4490128(Update) nicht für dieses System geeignet ist.
 
-
 07.06.2020 09:15:56	Error	36888	Schannel
-
 
 Windows Update:
 Nur anzeigen, wenn etwas nicht paßt.
 Windows Update auf Windows 10 und Windows Server 2019
 
-
 Backup Report
 https://community.spiceworks.com/scripts/show/2551-get-windows-server-backup-status-powershell-script
 c:\windows\logs\WindowsServerBackup\*.log
 
-
 Task autoamatisch eintragen
 https://blog.codeinside.eu/2019/02/26/check-scheduled-tasks-with-powershell/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+Code-insideBlog+%28Code-Inside+Blog%
-
 
 System Info:
 Hostname
@@ -95,28 +79,22 @@ DNS Einträge
 Uhrzeit (HW, Windows)
 Time-Server Einträge?
 
-
 Zusätzliche Filter für Events in config eintragen
-
 
 Dienste ignorieren?
 gpsvc
 ImDiskRD
-
 
 Windows Update Modul verwenden?
 Aktuelle Version funktioniert unter Windows 10 nicht, wenn keine Updates vorhanden sind.
 https://www.powershellgallery.com/packages/PSWindowsUpdate/2.0.0.4
 https://www.virtualizationhowto.com/2019/07/windows-server-2019-automating-windows-update-with-powershell-and-logs/
 
-
 Processe:
 Liste mit den 10 Processen, die am meisten CPU verbrauchen
 siehe Ryan\Monitoring Script.ps1
 
-
 Status der Firewall prüfen.
-
 
 Exchange
 Postfachgrößen
@@ -124,10 +102,8 @@ Spamschutz für E-Mails
 -> eigenes Scoop Paket?
 -> oder Option in config.ps1
 
-
 Antivirus
 Updatestatus prüfen, Datum und Uhrzeit des letzten Updates ausgeben.
-
 
 iLo auswerten
 https://buy.hpe.com/us/en/software/infrastructure-management-software/system-server-management-software/hpe-system-server-software-management-software/scripting-tools-for-windows-powershell/p/5440657
