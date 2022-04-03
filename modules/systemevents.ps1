@@ -1,4 +1,4 @@
-Function SystemEventAllowed($oEvent)
+Function SystemEventIsEventAllowed($oEvent)
 {
     if (
         $oEvent.Level -eq 2 `
@@ -114,7 +114,7 @@ $oSystemEventsReport = @()
 try {
     $sError = ""
     # $aSystemEvents = Get-EventLog -ComputerName $sComputer -LogName "System" -EntryType Error,Warning,FailureAudit -after (Get-Date).AddHours($iSystemEventLastHours * -1) -ErrorAction Stop
-    $aSystemEvents = Get-WinEvent -ComputerName $sComputer -FilterHashTable @{LogName='System'; Level=1,2,3; 'StartTime' = (Get-Date).AddHours($iSystemEventLastHours * -1)}
+    $aSystemEvents = Get-WinEvent -ComputerName $sComputer -oldest -FilterHashTable @{LogName='System'; Level=1,2,3; 'StartTime' = (Get-Date).AddHours($iSystemEventLastHours * -1)}
 } catch [Exception]{
     $oError = $_
     switch($oError.Exception.GetType().FullName) {
@@ -131,7 +131,7 @@ try {
 }
 
 foreach($oEvent in $aSystemEvents) {
-    $fReturn = SystemEventAllowed($oEvent)
+    $fReturn = SystemEventIsEventAllowed($oEvent)
     if ($fReturn -eq $false) {
         continue;
     }
