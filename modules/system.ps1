@@ -38,11 +38,11 @@ $sContent += @"
         </tr>
         <tr>
             <td>RAM</td>
-            <td>$RAMPercent % ($UsedRAM GB) of $TotalRAM GB used</td>
+            <td>$RAMPercent % ($UsedRAM GB) of $TotalRAM GB used, $FreeRAM GB free</td>
         </tr>
         <tr>
             <td>C</td>
-            <td>$($oVolumeC.'Percent') % ($($oVolumeC.UsedSpace) GB) of $($oVolumeC.Capacity) GB used</td>
+            <td>$($oVolumeC.'Percent') % ($($oVolumeC.UsedSpace) GB) of $($oVolumeC.Capacity) GB used, $($oVolumeC.FreeSpace) GB free</td>
         </tr>
 	</table>
 "@
