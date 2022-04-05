@@ -1,3 +1,9 @@
+Version 0.4.3
+Disk: Fixed calculation of disk space
+
+Version 0.4.2
+System: Format of Average CPU fixed
+
 Version 0.4.1
 Disk: Added config $aDiskspace
 SystemEvents: Sort by date ascending

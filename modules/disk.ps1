@@ -1,20 +1,20 @@
 Function DiskspaceIsDiskspaceToLow($oDiskinfo)
 {
     foreach($oDiskspace in $aDiskspace) {
-        if (
-            $oDiskspace.Drive -eq $oDiskinfo.DeviceID `
-            -and ( `
-				($oDiskinfo.FreeSpace/$oDiskinfo.Size)*100 -lt $oDiskspace.FreePercent `
-            	-or $oDiskinfo.FreeSpace -lt $oDiskspace.FreeSpace `
-			)
-        ) {
+        if ($oDiskspace.Drive -ne $oDiskinfo.DeviceID) {
+            continue
+        }
+        if (($oDiskinfo.FreeSpace / $oDiskinfo.Size) * 100 -lt $oDiskspace.FreePercent) {
             return $true
         }
+        if ($oDiskinfo.FreeSpace / 1gb -lt $oDiskspace.FreeSpace) {
+            return $true
+        }
+
+        return $false;
     }
 
-	if (
-		($oDiskinfo.FreeSpace/$oDiskinfo.Size)*100 -lt $iDiskspace
-    ) {
+	if (($oDiskinfo.FreeSpace / $oDiskinfo.Size) * 100 -lt $iDiskspace) {
         return $true
     }
 
@@ -31,7 +31,6 @@ foreach($oDiskinfo in $aDiskinfo) {
         continue;
     }
 
-#Name	DriveType	VolumeName	Size (GB)	FreeSpace (GB)	PercentFree
     $oRow = [pscustomobject][ordered]@{
         "Name" = $oDiskinfo.Name
         "Drive&nbsp;Type" = $oDiskinfo.DriveType

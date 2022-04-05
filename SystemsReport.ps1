@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.4.2"
+[string]$sVersion = "0.4.3"
 
 # Functions
 . "functions\host.ps1"
@@ -56,13 +56,13 @@ class Eventfilter {
 # Create the report parts
 #
 $sContent = "<h2>$sComputer Report $sCurrentTimeString ($sVersion)</h2>"
-. "modules\system.ps1"
+#. "modules\system.ps1"
 . "modules\disk.ps1"
-. "modules\windowsupdate.ps1"
-. "modules\systemevents.ps1"
-. "modules\applicationevents.ps1"
-. "modules\service.ps1"
-. "modules\process.ps1"
+#. "modules\windowsupdate.ps1"
+#. "modules\systemevents.ps1"
+#. "modules\applicationevents.ps1"
+#. "modules\service.ps1"
+#. "modules\process.ps1"
 
 # Assemble the final report from all our HTML sections
 $sHtmlMessage = $sHtmlHeader1 + $sHtmlStyles + $sHtmlHeader2 + $sContent + $sHtmlFooter
