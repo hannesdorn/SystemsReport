@@ -1,3 +1,6 @@
+Version 0.4.5
+Fixed config probelm in mailtest
+
 Version 0.4.4
 Removed comment on call of submodules
 

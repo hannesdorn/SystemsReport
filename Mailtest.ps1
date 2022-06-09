@@ -3,22 +3,14 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.1.0"
+[string]$sVersion = "0.1.1"
 
 # Functions
 . "functions\sendreport.ps1"
 
-# Default settings
-[string]$sMailServer = "host.domain.loc"
-[string]$sMailServerPort = "25"
-[string]$sMailUsername = ""
-[string]$sMailPassword = ""
-[bool]$fMailServerSSL = $false
-[string]$sMailFrom = "administrator@domain.loc"
-[string]$sMailTo = "it@domain.loc"
-
 # Config
-. ".\config\config.ps1"
+. "functions\config.ps1"
+. "config\config.ps1"
 
 # Report template
 . "templates\html.ps1"
