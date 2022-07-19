@@ -14,6 +14,7 @@ $sMailFrom = "administrator@domain.loc"
 
 # Recipients, seperated by ","
 $sMailTo = "it@domain.loc"
+$sMailToMonitor = "it@domain.loc"
 
 
 #

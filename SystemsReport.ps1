@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.4.5"
+[string]$sVersion = "0.5.0"
 
 # Functions
 . "functions\host.ps1"
@@ -13,8 +13,17 @@
 . "functions\config.ps1"
 . "config\config.ps1"
 
+# Modules
+. "modules\system.ps1"
+. "modules\disk.ps1"
+. "modules\windowsupdate.ps1"
+. "modules\systemevents.ps1"
+. "modules\applicationevents.ps1"
+. "modules\service.ps1"
+. "modules\process.ps1"
+
 # Report template
-. "templates\html.ps1"
+. "templates\systemsreport.ps1"
 
 [string]$sCurrentTimeString = Get-Date -Format "dd.MM.yyyy HH:mm:ss"
 [string]$sCurrentTime = Get-Date -Format "yyyy-MM-dd HH-mm-ss"
@@ -24,13 +33,13 @@
 # Create the report parts
 #
 $sContent = "<h2>$sComputer Report $sCurrentTimeString ($sVersion)</h2>"
-. "modules\system.ps1"
-. "modules\disk.ps1"
-. "modules\windowsupdate.ps1"
-. "modules\systemevents.ps1"
-. "modules\applicationevents.ps1"
-. "modules\service.ps1"
-. "modules\process.ps1"
+$sContent += SystemReport
+$sContent += DiskReport($true)
+$sContent += WindowsUpdateReport
+$sContent += SystemEventsReport
+$sContent += ApplicationEventsReport
+$sContent += ServiceReport
+$sContent += ProcessReport
 
 # Assemble the final report from all our HTML sections
 $sHtmlMessage = $sHtmlHeader1 + $sHtmlStyles + $sHtmlHeader2 + $sContent + $sHtmlFooter

@@ -109,47 +109,49 @@ Function SystemEventIsEventAllowed($oEvent)
     return $true
 }
 
-$oSystemEventsReport = @()
+Function SystemEventsReport()
+{
+    $oSystemEventsReport = @()
 
-try {
-    $sError = ""
-    # $aSystemEvents = Get-EventLog -ComputerName $sComputer -LogName "System" -EntryType Error,Warning,FailureAudit -after (Get-Date).AddHours($iSystemEventLastHours * -1) -ErrorAction Stop
-    $aSystemEvents = Get-WinEvent -ComputerName $sComputer -oldest -FilterHashTable @{LogName='System'; Level=1,2,3; 'StartTime' = (Get-Date).AddHours($iSystemEventLastHours * -1)}
-} catch [Exception]{
-    $oError = $_
-    switch($oError.Exception.GetType().FullName) {
-        System.InvalidOperationException {
-            $sError = $oError.Exception.Message
-        }
-        System.ArgumentException {
-            $sError = $oError.Exception.Message
-        }
-        default {
-            $sError = $oError.Exception.GetType().FullName
+    try {
+        $sError = ""
+        $aSystemEvents = Get-WinEvent -ComputerName $sComputer -oldest -FilterHashTable @{LogName='System'; Level=1,2,3; 'StartTime' = (Get-Date).AddHours($iSystemEventLastHours * -1)}
+    } catch [Exception]{
+        $oError = $_
+        switch($oError.Exception.GetType().FullName) {
+            System.InvalidOperationException {
+                $sError = $oError.Exception.Message
+            }
+            System.ArgumentException {
+                $sError = $oError.Exception.Message
+            }
+            default {
+                $sError = $oError.Exception.GetType().FullName
+            }
         }
     }
-}
 
-foreach($oEvent in $aSystemEvents) {
-    $fReturn = SystemEventIsEventAllowed($oEvent)
-    if ($fReturn -eq $false) {
-        continue;
+    foreach($oEvent in $aSystemEvents) {
+        $fReturn = SystemEventIsEventAllowed($oEvent)
+        if ($fReturn -eq $false) {
+            continue;
+        }
+
+        $oRow = [pscustomobject][ordered]@{
+            "Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.TimeCreated
+            "Entry&nbsp;type" = $oEvent.LevelDisplayName
+            "ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.Id
+            "Source" = $oEvent.ProviderName
+            "Message" = $oEvent.Message
+        }
+        $oSystemEventsReport += $oRow
     }
+    $sSystemEventsReport = $oSystemEventsReport | ConvertTo-Html -Fragment
 
-    $oRow = [pscustomobject][ordered]@{
-        "Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.TimeCreated
-        "Entry&nbsp;type" = $oEvent.LevelDisplayName
-        "ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.Id
-        "Source" = $oEvent.ProviderName
-        "Message" = $oEvent.Message
-    }
-    $oSystemEventsReport += $oRow
-}
-$sSystemEventsReport = $oSystemEventsReport | ConvertTo-Html -Fragment
-
-$sContent += @"
-	<h3>System Warnings or Errors in the last $iSystemEventLastHours hours</h3>
-	<p>The following is a list of the last <b>System log</b> events that had an Event Type of either Warning or Error on $sComputer</p>
-	$sSystemEventsReport
-    $sError
+    return @"
+        <h3>System Warnings or Errors in the last $iSystemEventLastHours hours</h3>
+        <p>The following is a list of the last <b>System log</b> events that had an Event Type of either Warning or Error on $sComputer</p>
+        $sSystemEventsReport
+        $sError
 "@
+}

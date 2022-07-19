@@ -21,30 +21,38 @@ Function DiskspaceIsDiskspaceToLow($oDiskinfo)
 	return $false
 }
 
-$oDiskinfoReport = @()
+Function DiskReport($fFull)
+{
+    $oDiskReport = @()
 
-$aDiskinfo = Get-CimInstance Win32_LogicalDisk | Where-Object{$_.DriveType -eq 3}
+    $aDiskinfo = Get-CimInstance Win32_LogicalDisk | Where-Object{$_.DriveType -eq 3}
 
-foreach($oDiskinfo in $aDiskinfo) {
-    $fReturn = DiskspaceIsDiskspaceToLow($oDiskinfo)
-    if ($fReturn -eq $false) {
-        continue;
+    foreach($oDiskinfo in $aDiskinfo) {
+        $fReturn = DiskspaceIsDiskspaceToLow($oDiskinfo)
+        if ($fReturn -eq $false) {
+            continue;
+        }
+
+        $oRow = [pscustomobject][ordered]@{
+            "Name" = $oDiskinfo.Name
+            "Drive&nbsp;Type" = $oDiskinfo.DriveType
+            "Volume&nbsp;Name" = $oDiskinfo.VolumeName
+            "Size&nbsp;(GB)" = [Math]::Round($oDiskinfo.Size / 1gb, 2)
+            "FreeSpace&nbsp;(GB)" = [Math]::Round($oDiskinfo.FreeSpace / 1gb, 2)
+            "Percent&nbsp;free" = [Math]::Round($oDiskinfo.FreeSpace / $oDiskinfo.Size * 100, 2)
+        }
+        $oDiskReport += $oRow
     }
 
-    $oRow = [pscustomobject][ordered]@{
-        "Name" = $oDiskinfo.Name
-        "Drive&nbsp;Type" = $oDiskinfo.DriveType
-        "Volume&nbsp;Name" = $oDiskinfo.VolumeName
-        "Size&nbsp;(GB)" = [Math]::Round($oDiskinfo.Size / 1gb, 2)
-        "FreeSpace&nbsp;(GB)" = [Math]::Round($oDiskinfo.FreeSpace / 1gb, 2)
-        "Percent&nbsp;free" = [Math]::Round($oDiskinfo.FreeSpace / $oDiskinfo.Size * 100, 2)
+    if ($fFull -eq $false -and $oDiskReport.count -eq 0) {
+        return ""
     }
-    $oDiskinfoReport += $oRow
-}
-$sDiskinfoReport = $oDiskinfoReport | ConvertTo-Html -Fragment
 
-$sContent += @"
-	<h3>Disk Info</h3>
-	<p>Drive(s) listed below have to low free space. Drives above the threshold will not be listed.</p>
-    $sDiskinfoReport
+    $sDiskReport = $oDiskReport | ConvertTo-Html -Fragment
+
+    return @"
+        <h3>Disk Info</h3>
+        <p>Drive(s) listed below have to low free space. Drives above the threshold will not be listed.</p>
+        $sDiskReport
 "@
+}

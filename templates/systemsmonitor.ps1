@@ -1,4 +1,4 @@
-# Assemble the HTML Header and CSS for our Report
+# Assemble the HTML Header and CSS for our report
 $sHtmlHeader1 = @"
 <!doctype html>
 <html lang="de">
@@ -7,7 +7,7 @@ $sHtmlHeader1 = @"
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Systems Report</title>
+    <title>Systems Monitor</title>
 
     <style type="text/css">
     <!--

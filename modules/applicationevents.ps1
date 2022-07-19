@@ -47,47 +47,50 @@ Function ApplicationEventIsEventAllowed($oEvent)
     return $true
 }
 
-$oApplicationEventsReport = @()
+Function ApplicationEventsReport()
+{
+    $oApplicationEventsReport = @()
 
-try {
-    $sError = ""
-    #$aApplicationEvents = Get-EventLog -ComputerName $sComputer -LogName "Application" -EntryType Error,Warning,FailureAudit -after (Get-Date).AddHours($iApplicationEventLastHours * -1) -ErrorAction Stop
-    $aApplicationEvents = Get-WinEvent -ComputerName $sComputer -oldest -FilterHashTable @{LogName='Application'; Level=1,2,3; 'StartTime' = (Get-Date).AddHours($iSystemEventLastHours * -1)}
-} catch [Exception]{
-    $oError = $_
-    switch($oError.Exception.GetType().FullName) {
-        System.InvalidOperationException {
-            $sError = $oError.Exception.Message
-        }
-        System.ArgumentException {
-            $sError = $oError.Exception.Message
-        }
-        default {
-            $sError = $oError.Exception.GetType().FullName
+    try {
+        $sError = ""
+        #$aApplicationEvents = Get-EventLog -ComputerName $sComputer -LogName "Application" -EntryType Error,Warning,FailureAudit -after (Get-Date).AddHours($iApplicationEventLastHours * -1) -ErrorAction Stop
+        $aApplicationEvents = Get-WinEvent -ComputerName $sComputer -oldest -FilterHashTable @{LogName='Application'; Level=1,2,3; 'StartTime' = (Get-Date).AddHours($iSystemEventLastHours * -1)}
+    } catch [Exception]{
+        $oError = $_
+        switch($oError.Exception.GetType().FullName) {
+            System.InvalidOperationException {
+                $sError = $oError.Exception.Message
+            }
+            System.ArgumentException {
+                $sError = $oError.Exception.Message
+            }
+            default {
+                $sError = $oError.Exception.GetType().FullName
+            }
         }
     }
-}
 
-foreach($oEvent in $aApplicationEvents) {
-    $fReturn = ApplicationEventIsEventAllowed($oEvent)
-    if ($fReturn -eq $false) {
-        continue;
+    foreach($oEvent in $aApplicationEvents) {
+        $fReturn = ApplicationEventIsEventAllowed($oEvent)
+        if ($fReturn -eq $false) {
+            continue;
+        }
+
+        $oRow = [pscustomobject][ordered]@{
+            "Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.TimeCreated
+            "Entry&nbsp;type" = $oEvent.LevelDisplayName
+            "ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.Id
+            "Source" = $oEvent.ProviderName
+            "Message" = $oEvent.Message
+        }
+        $oApplicationEventsReport += $oRow
     }
+    $sApplicationEventsReport = $oApplicationEventsReport | ConvertTo-Html -Fragment
 
-    $oRow = [pscustomobject][ordered]@{
-        "Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.TimeCreated
-        "Entry&nbsp;type" = $oEvent.LevelDisplayName
-        "ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" = $oEvent.Id
-        "Source" = $oEvent.ProviderName
-        "Message" = $oEvent.Message
-    }
-    $oApplicationEventsReport += $oRow
-}
-$sApplicationEventsReport = $oApplicationEventsReport | ConvertTo-Html -Fragment
-
-$sContent += @"
-	<h3>Application Warnings or Errors in the last $iApplicationEventLastHours hours</h3>
-	<p>The following is a list of the last <b>Application log</b> events that had an Event Type of either Warning or Error on $sComputer</p>
-	$sApplicationEventsReport
-    $sError
+    return @"
+        <h3>Application Warnings or Errors in the last $iApplicationEventLastHours hours</h3>
+        <p>The following is a list of the last <b>Application log</b> events that had an Event Type of either Warning or Error on $sComputer</p>
+        $sApplicationEventsReport
+        $sError
 "@
+}

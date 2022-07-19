@@ -1,3 +1,6 @@
+Version 0.5.0
+Added Systems Monitor
+
 Version 0.4.5
 Fixed config probelm in mailtest
 
