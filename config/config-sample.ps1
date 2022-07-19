@@ -18,6 +18,14 @@ $sMailToMonitor = "it@domain.loc"
 
 
 #
+# Telegram Settings
+#
+
+$sTelegramToken = ""
+$sTelegramChatId = ""
+
+
+#
 # Disk settings
 #
 

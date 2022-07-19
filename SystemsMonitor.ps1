@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsMonitor.ps1
 
-[string]$sVersion = "0.1.0"
+[string]$sVersion = "0.2.0"
 
 # Functions
 . "functions\sendreport.ps1"
@@ -26,7 +26,7 @@
 # Create the report parts
 #
 $sContent = "<h2>$sComputer Report $sCurrentTimeString ($sVersion)</h2>"
-$sDiskReport = DiskReport($false)
+$sDiskReport = DiskReport($true)
 if ($sDiskReport -ne "") {
     $sContent += $sDiskReport
 
@@ -37,11 +37,17 @@ if ($sDiskReport -ne "") {
     if (!(Test-Path((Get-Location).Path + "\reports"))) {
         New-Item -ItemType Directory -Path ((Get-Location).Path + "\reports")
     }
-
     $sHtmlMessage | Out-File ((Get-Location).Path + "\reports\" + $sCurrentTime + " monitor.htm")
 
     #
     # Email report
     #
     SendReport $sMailServer $sMailServerPort $fMailServerSSL $sMailUsername $sMailPassword $sMailFrom $sMailToMonitor "Systems Monitor $sComputer" $sHtmlMessage
+
+    #
+    # Send telegram message
+    #
+    $sContent = "Systems Monitor $sComputer`r`n$sDiskReport"
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $sResponse = Invoke-RestMethod -Uri "https://api.telegram.org/bot$sTelegramToken/sendMessage?chat_id=$sTelegramChatId&text=$sContent"
 }

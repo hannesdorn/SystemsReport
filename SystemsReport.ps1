@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.5.0"
+[string]$sVersion = "0.6.0"
 
 # Functions
 . "functions\host.ps1"
@@ -48,7 +48,6 @@ $sHtmlMessage = $sHtmlHeader1 + $sHtmlStyles + $sHtmlHeader2 + $sContent + $sHtm
 if (!(Test-Path((Get-Location).Path + "\reports"))) {
     New-Item -ItemType Directory -Path ((Get-Location).Path + "\reports")
 }
-
 $sHtmlMessage | Out-File ((Get-Location).Path + "\reports\" + $sCurrentTime + " Report.htm")
 
 #

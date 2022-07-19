@@ -1,3 +1,6 @@
+Version 0.6.0
+Added Systems Monitor Telegram Message
+
 Version 0.5.0
 Added Systems Monitor
 
