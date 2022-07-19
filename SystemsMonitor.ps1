@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsMonitor.ps1
 
-[string]$sVersion = "0.2.0"
+[string]$sVersion = "0.2.1"
 
 # Functions
 . "functions\sendreport.ps1"
@@ -26,7 +26,7 @@
 # Create the report parts
 #
 $sContent = "<h2>$sComputer Report $sCurrentTimeString ($sVersion)</h2>"
-$sDiskReport = DiskReport($true)
+$sDiskReport = DiskReport($false)
 if ($sDiskReport -ne "") {
     $sContent += $sDiskReport
 
