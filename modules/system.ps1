@@ -25,7 +25,7 @@ Function SystemReport()
     # Create the chart using our Chart Function
     #$sCImage = ChartCreatePie "C usage  (Used/Free)" "GB" $oVolumeC.UsedSpace $oVolumeC.FreeSpace
 
-    $sContent += @"
+    return @"
         <h3>System Info</h3>
         <table class="list system__list">
             <tr>

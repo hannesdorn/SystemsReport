@@ -1,3 +1,6 @@
+Version 0.6.3
+Fixed output of system.ps1 module
+
 Version 0.6.2
 Added SystemsMonitor.cmd and SystemsMonitor.ps1 to build script
 
