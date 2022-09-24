@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.1.1"
+[string]$sVersion = "0.1.2"
 
 # Functions
 . "functions\sendreport.ps1"
@@ -13,7 +13,7 @@
 . "config\config.ps1"
 
 # Report template
-. "templates\html.ps1"
+. "templates\mailtest.ps1"
 
 [string]$sCurrentTimeString = Get-Date -Format "dd.MM.yyyy HH:mm:ss"
 [string]$sCurrentTime = Get-Date -Format "yyyy-MM-dd HH-mm-ss"
