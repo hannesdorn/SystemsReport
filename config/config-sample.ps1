@@ -64,3 +64,11 @@ $iApplicationEventLastHours = 25
 #$aApplicationEventEventfilter += @(
 #    [Eventfilter]@{Level=3; ProviderName='Disk'; Id=1}
 #)
+
+#
+# Service settings
+#
+
+#$aServicefilter += @(
+#    [Servicefilter]@{Name='edgeupdate'}
+#)

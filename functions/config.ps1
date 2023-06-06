@@ -15,6 +15,10 @@ class Eventfilter {
     [int]$Id
 }
 
+class Servicefilter {
+    [string]$Name
+}
+
 # Default settings
 [string]$sMailServer = "host.domain.loc"
 [string]$sMailServerPort = "25"
@@ -30,3 +34,4 @@ class Eventfilter {
 [array]$aSystemEventEventfilter = @()
 [int]$iApplicationEventLastHours = 25
 [array]$aApplicationEventEventfilter = @()
+[array]$aServicefilter = @()
