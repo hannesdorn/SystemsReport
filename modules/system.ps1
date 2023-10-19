@@ -19,8 +19,16 @@ Function SystemReport()
     #<img src="data:image/png;base64,$sRamImage" class="system__chart-ram">
     #<img src="data:image/png;base64,$sCImage" class="system__chart-c">
 
-    # Get free space of C:
-    $oVolumeC = Get-CimInstance -ClassName Win32_Volume -Filter "DriveLetter = 'C:'" | Select-object @{n='UsedSpace'; Expression = {"{0:N2}" -f  (($_.Capacity - $_.FreeSpace)/1gb)}}, @{n='Percent'; Expression = {"{0:N2}" -f  ((($_.Capacity - $_.FreeSpace) / $_.Capacity) * 100)}}, @{n='Capacity';e={"{0:n2}" -f ($_.capacity/1gb)}}, @{n='FreeSpace';e={"{0:n2}" -f ($_.freespace/1gb)}}
+    $sDisks = ""
+    $aDiskinfo = Get-CimInstance Win32_LogicalDisk | Where-Object{$_.DriveType -eq 3}
+    foreach($oDiskinfo in $aDiskinfo) {
+        $sDisks = $sDisks + @"
+        <tr>
+            <td>$($oDiskinfo.Name)</td>
+            <td>$([Math]::Round(($oDiskinfo.Size - $oDiskinfo.FreeSpace) / $oDiskinfo.Size * 100, 2)) % ($([Math]::Round(($oDiskinfo.Size - $oDiskinfo.FreeSpace) / 1gb, 2)) GB) of $([Math]::Round($oDiskinfo.Size / 1gb, 2)) GB used, $([Math]::Round($oDiskinfo.FreeSpace / 1gb), 2) GB free</td>
+        </tr>
+"@
+    }
 
     # Create the chart using our Chart Function
     #$sCImage = ChartCreatePie "C usage  (Used/Free)" "GB" $oVolumeC.UsedSpace $oVolumeC.FreeSpace
@@ -44,10 +52,7 @@ Function SystemReport()
                 <td>RAM</td>
                 <td>$RAMPercent % ($UsedRAM GB) of $TotalRAM GB used, $FreeRAM GB free</td>
             </tr>
-            <tr>
-                <td>C</td>
-                <td>$($oVolumeC.'Percent') % ($($oVolumeC.UsedSpace) GB) of $($oVolumeC.Capacity) GB used, $($oVolumeC.FreeSpace) GB free</td>
-            </tr>
+            $($sDisks)
         </table>
 "@
 }

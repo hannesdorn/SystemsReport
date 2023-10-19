@@ -1,5 +1,6 @@
 Version 0.7.1
 Remove disk warning 51 eventfilter in systemevents.ps1
+System overview: show all disks, not only c:
 
 Version 0.7.0
 Added filter for Services: edgeupdate and spice-agent ignorieren
