@@ -56,14 +56,6 @@ Function SystemEventIsEventAllowed($oEvent)
 
     if (
         $oEvent.Level -eq 2 `
-        -and $oEvent.ProviderName -eq "Disk" `
-        -and $oEvent.Id -eq 51
-    ) {
-        return $false
-    }
-
-    if (
-        $oEvent.Level -eq 2 `
         -and $oEvent.ProviderName -eq "Microsoft-Windows-FilterManager" `
         -and $oEvent.Id -eq 3
     ) {
@@ -74,14 +66,6 @@ Function SystemEventIsEventAllowed($oEvent)
         $oEvent.Level -eq 2 `
         -and $oEvent.ProviderName -eq "UmrdpService" `
         -and $oEvent.Id -eq 1111
-    ) {
-        return $false
-    }
-
-    if (
-        $oEvent.Level -eq 3 `
-        -and $oEvent.ProviderName -eq "Disk" `
-        -and $oEvent.Id -eq 51
     ) {
         return $false
     }
