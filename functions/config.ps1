@@ -10,9 +10,10 @@ class Diskspace {
 }
 
 class Eventfilter {
-    [string]$Level      # 1 = Critical, 2 = Error, 3 = Warning,
-    [string]$ProviderName
-    [int]$Id
+    [string]$Level = 0          # 1 = Critical, 2 = Error, 3 = Warning, 0 -> ignore
+    [string]$ProviderName = ''  # '' -> ignore
+    [int]$Id = 0                # 0 -> ignore
+    [string]$Message = ''       # '' -> ignore, use regular expression
 }
 
 class Servicefilter {

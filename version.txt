@@ -1,3 +1,7 @@
+Version 0.7.2
+Eventfilter: added regex filter for Message
+Eventfilter: added default values: Level = 0 -> ignore Level, ProviderName = '' -> ignore ProviderName, Id = 0 -> ignore Id, Message = '' -> ignore Message
+
 Version 0.7.1
 Remove disk warning 51 eventfilter in systemevents.ps1
 System overview: show all disks, not only c:

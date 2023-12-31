@@ -82,9 +82,10 @@ Function SystemEventIsEventAllowed($oEvent)
 
     foreach($oEventfilter in $aSystemEventEventfilter) {
         if (
-            $oEvent.Level -eq $oEventfilter.Level `
-            -and $oEvent.ProviderName -eq $oEventfilter.ProviderName `
-            -and $oEvent.Id -eq $oEventfilter.Id
+            ($oEvent.Level -eq $oEventfilter.Level -or $oEventfilter.Level -eq 0)`
+            -and ($oEvent.ProviderName -eq $oEventfilter.ProviderName -or $oEventfilter.ProviderName -eq '') `
+            -and ($oEvent.Id -eq $oEventfilter.Id -or $oEventfilter.Id -eq 0) `
+            -and ($oEvent.Message -match $oEventfilter.Message -or $oEventfilter.Message -eq '')
         ) {
             return $false
         }
