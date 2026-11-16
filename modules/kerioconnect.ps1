@@ -20,52 +20,60 @@ Function KerioConnectReport()
             if (-not (Test-Path $file)) { continue }
 
             # Datei zeilenweise einlesen (schont den Arbeitsspeicher bei großen Logs)
-            foreach ($line in [System.IO.File]::ReadLines($file)) {
-                # 2. Log-Zeile parsen: Erwartetes Format z.B. "[16/Nov/2026 11:18:26][1576] Text..."
-                if ($line -match '^\[([^\]]+)\](.*)$') {
-                    $dateString = $Matches[1]
-                    $logText    = $Matches[2]
+            $stream = [System.IO.File]::Open($file, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite)
+            $reader = [System.IO.StreamReader]::new($stream)
+            try {
+                while (($line = $reader.ReadLine()) -ne $null) {
+                    # 2. Log-Zeile parsen: Erwartetes Format z.B. "[16/Nov/2026 11:18:26][1576] Text..."
+                    if ($line -match '^\[([^\]]+)\](.*)$') {
+                        $dateString = $Matches[1]
+                        $logText    = $Matches[2]
 
-                    # Datum im Format "16/Nov/2026 11:18:26" mit englischer InvariantCulture parsen
-                    $parseSuccess = $false
-                    $parsedDate   = $null
-                    try {
-                        $parsedDate = [datetime]::ParseExact(
-                            $dateString,
-                            'dd/MMM/yyyy HH:mm:ss',
-                            [System.Globalization.CultureInfo]::InvariantCulture
-                        )
-                        $parseSuccess = $true
-                    } catch {
+                        # Datum im Format "16/Nov/2026 11:18:26" mit englischer InvariantCulture parsen
                         $parseSuccess = $false
-                    }
-
-                    # 3. Zeitfilter prüfen (nur Einträge der letzten X Stunden)
-                    if ($parseSuccess -and ($parsedDate -ge $thresholdTime)) {
-
-                        # 4. Filter-Matching (mindestens ein Filter muss matchen, falls Filter vorhanden sind)
-                        $matchFound = $false
-                        if (-not $config.Filter -or $config.Filter.Count -eq 0) {
-                            $matchFound = $true # Wenn kein Filter definiert ist, alles übernehmen
-                        } else {
-                            foreach ($pattern in $config.Filter) {
-                                if ($line -match $pattern) {
-                                    $matchFound = $true
-                                    break
-                                }
-                            }
+                        $parsedDate   = $null
+                        try {
+                            $parsedDate = [datetime]::ParseExact(
+                                $dateString,
+                                'dd/MMM/yyyy HH:mm:ss',
+                                [System.Globalization.CultureInfo]::InvariantCulture
+                            )
+                            $parseSuccess = $true
+                        } catch {
+                            $parseSuccess = $false
                         }
 
-                        # Wenn Match erfolgreich, zum Ergebnis hinzufügen
-                        if ($matchFound) {
-                            $allEntries.Add([PSCustomObject]@{
-                                SortDate      = $parsedDate
-                                FormattedTime = $parsedDate.ToString('yyyy-MM-dd HH:mm:ss')
-                                Text          = $logText # Alternativ $line, wenn der Zeitstempel im Text bleiben soll
-                            })
+                        # 3. Zeitfilter prüfen (nur Einträge der letzten X Stunden)
+                        if ($parseSuccess -and ($parsedDate -ge $thresholdTime)) {
+
+                            # 4. Filter-Matching (mindestens ein Filter muss matchen, falls Filter vorhanden sind)
+                            $matchFound = $false
+                            if (-not $config.Filter -or $config.Filter.Count -eq 0) {
+                                $matchFound = $true # Wenn kein Filter definiert ist, alles übernehmen
+                            } else {
+                                foreach ($pattern in $config.Filter) {
+                                    if ($line -match $pattern) {
+                                        $matchFound = $true
+                                        break
+                                    }
+                                }
+                            }
+
+                            # Wenn Match erfolgreich, zum Ergebnis hinzufügen
+                            if ($matchFound) {
+                                $allEntries.Add([PSCustomObject]@{
+                                    SortDate      = $parsedDate
+                                    FormattedTime = $parsedDate.ToString('yyyy-MM-dd HH:mm:ss')
+                                    Text          = $logText # Alternativ $line, wenn der Zeitstempel im Text bleiben soll
+                                })
+                            }
                         }
                     }
                 }
+            }
+            finally {
+                $reader.Dispose()
+                $stream.Dispose()
             }
         }
 
@@ -75,8 +83,8 @@ Function KerioConnectReport()
 
             # 6. Als HTML-Tabelle ausgeben (2 Spalten: Datum und Uhrzeit, Text)
             $htmlTable += $sortedEntries | Select-Object `
-                @{Name='Datum&nbsp;Uhrzeit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; Expression={$_.FormattedTime}},
-                @{Name=$config.Title + ' Text'; Expression={$_.Text}} |
+                @{Name='Time&nbsp;generated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; Expression={$_.FormattedTime}},
+                @{Name=$config.Title + ' Message'; Expression={$_.Text}} |
                 ConvertTo-Html -Fragment
         }
     }
