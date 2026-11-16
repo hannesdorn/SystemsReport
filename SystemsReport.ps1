@@ -19,6 +19,7 @@
 . "modules\windowsupdate.ps1"
 . "modules\systemevents.ps1"
 . "modules\applicationevents.ps1"
+. "modules\kerioconnect.ps1"
 . "modules\service.ps1"
 . "modules\process.ps1"
 
@@ -38,6 +39,7 @@ $sContent += DiskReport($true)
 $sContent += WindowsUpdateReport
 $sContent += SystemEventsReport
 $sContent += ApplicationEventsReport
+$sContent += KerioConnectReport
 $sContent += ServiceReport
 $sContent += ProcessReport
 

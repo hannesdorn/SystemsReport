@@ -20,6 +20,13 @@ class Servicefilter {
     [string]$Name
 }
 
+class KerioConnectLogfile {
+    [string]$Title = ''
+    [string]$Path = ''          # C:\Program Files\Kerio\MailServer\store\logs\error.log
+    [int]$LastHours = 25         # Only entries of the last 25 hours
+    [string[]]$Filter = @()     # Display only entries containing one of the filter entries (regexp)
+}
+
 # Default settings
 [string]$sMailServer = "host.domain.loc"
 [string]$sMailServerPort = "25"
@@ -29,10 +36,11 @@ class Servicefilter {
 [string]$sMailFrom = "administrator@domain.loc"
 [string]$sMailTo = "it@domain.loc"
 [int]$iDiskspace = 20
-[array]$aDiskspace = @()
+[Diskspace[]]$aDiskspace = @()
+[KerioConnectLogfile[]]$aKerioConnectLogfile = @()
 [int]$iProccesses = 10
 [int]$iSystemEventLastHours = 25
-[array]$aSystemEventEventfilter = @()
+[Eventfilter[]]$aSystemEventEventfilter = @()
 [int]$iApplicationEventLastHours = 25
-[array]$aApplicationEventEventfilter = @()
-[array]$aServicefilter = @()
+[Eventfilter[]]$aApplicationEventEventfilter = @()
+[Servicefilter[]]$aServicefilter = @()

@@ -31,9 +31,48 @@ $sTelegramChatId = ""
 
 # Minimum diskspace in %
 $iDiskspace = 20
-#$aDiskspace += @(
-#    [Eventfilter]@{Drive='C:'; FreePercent=20; FreeSpace=0}
-#)
+# $aDiskspace += @(
+#     [Diskspace]@{Drive='C:'; FreePercent=0; FreeSpace=10}
+#     [Diskspace]@{Drive='D:'; FreePercent=0; FreeSpace=10}
+# )
+
+
+#
+# System events settings
+#
+
+# Display events for the last hours
+$iSystemEventLastHours = 25
+# $aSystemEventEventfilter += @(
+#     [Eventfilter]@{Level=3; ProviderName='Disk'; Id=1; Message='.*'}
+# )
+
+
+#
+# Applicaton events settings
+#
+
+# Display events for the last hours
+$iApplicationEventLastHours = 25
+# $aApplicationEventEventfilter += @(
+#     [Eventfilter]@{Level=3; ProviderName='Disk'; Id=1; Message='.*'}
+# )
+
+
+#
+# KerioConnect settings
+#
+# $aKerioConnectLogfile += @(
+#     [KerioConnectLogfile]@{
+#         Title = 'error.log'
+#         Path = 'C:\Program Files\Kerio\MailServer\store\logs\error.log'
+#         LastHours = 25
+#         Filter = @(
+#             '.*{smtps}.*',
+#             '.*{spam}.*'
+#         )
+#     }
+# )
 
 
 #
@@ -45,30 +84,9 @@ $iProccesses = 10
 
 
 #
-# System events settings
-#
-
-# Display events for the last hours
-$iSystemEventLastHours = 25
-#$aSystemEventEventfilter += @(
-#    [Eventfilter]@{Level=3; ProviderName='Disk'; Id=1; Message='.*'}
-#)
-
-
-#
-# Applicaton events settings
-#
-
-# Display events for the last hours
-$iApplicationEventLastHours = 25
-#$aApplicationEventEventfilter += @(
-#    [Eventfilter]@{Level=3; ProviderName='Disk'; Id=1; Message='.*'}
-#)
-
-#
 # Service settings
 #
 
-#$aServicefilter += @(
-#    [Servicefilter]@{Name='edgeupdate'}
-#)
+# $aServicefilter += @(
+#     [Servicefilter]@{Name='edgeupdate'}
+# )
