@@ -1,3 +1,6 @@
+Version 0.7.5
+Module KerioConnect: Always output KerioConnect block
+
 Version 0.7.4
 Module KerioConnect: Fixed accessing readonly logfiles
 

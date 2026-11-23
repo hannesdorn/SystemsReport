@@ -90,7 +90,9 @@ Function KerioConnectReport()
     }
 
     # Ausgabe des HTML-Codes
-    if (-not $htmlTable -eq '') {
+    if ($htmlTable -eq '') {
+        $htmlTable = '<h3>KerioConnect</h3><p>No entries found.</p>' + $htmlTable
+    } else {
         $htmlTable = '<h3>KerioConnect</h3>' + $htmlTable
     }
 
