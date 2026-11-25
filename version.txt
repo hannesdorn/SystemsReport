@@ -1,3 +1,6 @@
+Version 0.7.7
+Config: Fixed true/false typo
+
 Version 0.7.6
 Config: enable/disable for each module added
 Module KerioConnect: renamed parameter Filter to Include
