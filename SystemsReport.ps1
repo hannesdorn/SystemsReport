@@ -3,7 +3,7 @@
 #
 # powershell.exe -File SystemsReport.ps1
 
-[string]$sVersion = "0.7.5"
+[string]$sVersion = "0.7.6"
 
 # Functions
 . "functions\host.ps1"
@@ -34,14 +34,30 @@
 # Create the report parts
 #
 $sContent = "<h2>$sComputer Report $sCurrentTimeString ($sVersion)</h2>"
-$sContent += SystemReport
-$sContent += DiskReport($true)
-$sContent += WindowsUpdateReport
-$sContent += SystemEventsReport
-$sContent += ApplicationEventsReport
-$sContent += KerioConnectReport
-$sContent += ServiceReport
-$sContent += ProcessReport
+if ($fSystem) {
+    $sContent += SystemReport
+}
+if ($fDisk) {
+    $sContent += DiskReport($true)
+}
+if ($fWindowsUpdate) {
+    $sContent += WindowsUpdateReport
+}
+if ($fSystemEvents) {
+    $sContent += SystemEventsReport
+}
+if ($fApplicationEvents) {
+    $sContent += ApplicationEventsReport
+}
+if ($fKerioConnect) {
+    $sContent += KerioConnectReport
+}
+if ($fService) {
+    $sContent += ServiceReport
+}
+if ($fProcess) {
+    $sContent += ProcessReport
+}
 
 # Assemble the final report from all our HTML sections
 $sHtmlMessage = $sHtmlHeader1 + $sHtmlStyles + $sHtmlHeader2 + $sContent + $sHtmlFooter

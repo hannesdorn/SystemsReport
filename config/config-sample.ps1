@@ -26,6 +26,19 @@ $sTelegramChatId = ""
 
 
 #
+# Modules
+#
+
+$fSystem = true
+$fDisk = true
+$fWindowsUpdate = true
+$fSystemEvents = true
+$fApplicationEvents = true
+$fKerioConnect = false
+$fService = true
+$fProcess = true
+
+
 # Disk settings
 #
 

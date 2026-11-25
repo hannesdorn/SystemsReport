@@ -1,3 +1,5 @@
+Version 0.7.6
+Config: enable/disable for each module added
 Version 0.7.5
 Module KerioConnect: Always output KerioConnect block
 
