@@ -80,7 +80,7 @@ $iApplicationEventLastHours = 25
 #         Title = 'error.log'
 #         Path = 'C:\Program Files\Kerio\MailServer\store\logs\error.log'
 #         LastHours = 25
-#         Filter = @(
+#         Include = @(
 #             '.*{smtps}.*',
 #             '.*{spam}.*'
 #         )

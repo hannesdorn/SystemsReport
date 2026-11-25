@@ -48,10 +48,10 @@ Function KerioConnectReport()
 
                             # 4. Filter-Matching (mindestens ein Filter muss matchen, falls Filter vorhanden sind)
                             $matchFound = $false
-                            if (-not $config.Filter -or $config.Filter.Count -eq 0) {
+                            if (-not $config.Include -or $config.Include.Count -eq 0) {
                                 $matchFound = $true # Wenn kein Filter definiert ist, alles übernehmen
                             } else {
-                                foreach ($pattern in $config.Filter) {
+                                foreach ($pattern in $config.Include) {
                                     if ($line -match $pattern) {
                                         $matchFound = $true
                                         break
