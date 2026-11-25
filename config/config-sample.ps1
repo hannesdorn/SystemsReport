@@ -39,6 +39,7 @@ $fService = $true
 $fProcess = $true
 
 
+#
 # Disk settings
 #
 
@@ -75,6 +76,7 @@ $iApplicationEventLastHours = 25
 #
 # KerioConnect settings
 #
+
 # $aKerioConnectLogfile += @(
 #     [KerioConnectLogfile]@{
 #         Title = 'error.log'
